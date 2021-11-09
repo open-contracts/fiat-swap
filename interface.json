@@ -187,7 +187,7 @@
             "type": "bool"
           }
         ],
-        "stateMutability": "nonpayable",
+        "stateMutability": "payable",
         "type": "function",
         "oracleFolder": "venmo_oracle",
         "description": "Allows the caller to accept an offer they received, by generating an enclave proof that they made an appropriate Venmo payment."
