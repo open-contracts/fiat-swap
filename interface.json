@@ -191,6 +191,68 @@
         "type": "function",
         "oracleFolder": "venmo_oracle",
         "description": "Allows the caller to accept an offer they received, by generating an enclave proof that they made an appropriate Venmo payment."
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "oracleHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "address payable",
+            "name": "msgSender",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "venmoHash",
+            "type": "bytes32"
+          }
+        ],
+        "name": "paypalPurchase",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "payable",
+        "type": "function",
+        "oracleFolder": "paypal_oracle",
+        "description": "Allows the caller to accept an offer they received, by generating an enclave proof that they made an appropriate Paypal payment."
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "oracleHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "address payable",
+            "name": "msgSender",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "venmoHash",
+            "type": "bytes32"
+          }
+        ],
+        "name": "paypalPurchase2",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "payable",
+        "type": "function",
+        "oracleFolder": "paypal_oracle",
+        "description": "Allows the caller to accept an offer they received, by generating an enclave proof that they made an appropriate Paypal payment."
       }
     ]
   }
