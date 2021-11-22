@@ -1,258 +1,223 @@
 {
   "ropsten": {
     "name": "Fiat Swap",
-    "address": "0x9f926F5e8588DcC41b56eA9Eb69A58a235540e61",
-    "description": "This contract allows you to trustlessly buy tokens from any person who uses the same digital payments provider as you. For now, only Venmo is supported.",
+    "address": "0xfC381154DBCC5484626b0268B438BD7Cc8708fFF",
+    "description": "This contract allows you to trustlessly buy tokens from any person who uses the same digital payments provider as you. For now, Venmo and Paypal are supported.",
     "abi": [
-      {
-        "inputs": [
-          {
-            "internalType": "bytes4",
-            "name": "",
-            "type": "bytes4"
-          }
-        ],
-        "name": "_allowedHash",
-        "outputs": [
-          {
-            "internalType": "bytes32",
-            "name": "",
-            "type": "bytes32"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "_complete_oracles",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "_completed",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "string",
-            "name": "sellerVenmo",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "priceInCent",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "transactionMessage",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "secret",
-            "type": "string"
-          }
-        ],
-        "name": "computeHash",
-        "outputs": [
-          {
-            "internalType": "bytes32",
-            "name": "",
-            "type": "bytes32"
-          }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "bytes32",
-            "name": "venmoHash",
-            "type": "bytes32"
-          }
-        ],
-        "name": "ethOffered",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "description": "Allows the caller to check how much, if any, ETH they are offered for making a specific Venmo transaction."
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "buyer",
-            "type": "address"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "venmoHash",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "uint256",
-            "name": "lockForSeconds",
-            "type": "uint256"
-          }
-        ],
-        "name": "offer",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function",
-        "description": "This function allows the caller to make an offer to sell ETH to 'buyer', if they make a specific Venmo transaction identified by venmoHash."
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "bytes32",
-            "name": "venmoHash",
-            "type": "bytes32"
-          }
-        ],
-        "name": "retract",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function",
-        "description": "This function allows the caller to retract an offer they made, if its timelock has lapsed."
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "bytes32",
-            "name": "venmoHash",
-            "type": "bytes32"
-          }
-        ],
-        "name": "secondsLeft",
-        "outputs": [
-          {
-            "internalType": "int256",
-            "name": "",
-            "type": "int256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "description": "Check how many seconds are left to make a specific Venmo transaction identified by venmoHash."
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "bytes32",
-            "name": "oracleHash",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "address payable",
-            "name": "msgSender",
-            "type": "address"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "venmoHash",
-            "type": "bytes32"
-          }
-        ],
-        "name": "venmoPurchase",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "payable",
-        "type": "function",
-        "oracleFolder": "venmo_oracle",
-        "description": "Allows the caller to accept an offer they received, by generating an enclave proof that they made an appropriate Venmo payment."
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "bytes32",
-            "name": "oracleHash",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "address payable",
-            "name": "msgSender",
-            "type": "address"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "venmoHash",
-            "type": "bytes32"
-          }
-        ],
-        "name": "paypalPurchase",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "payable",
-        "type": "function",
+	{
+		"inputs": [
+			{
+				"internalType": "bytes4",
+				"name": "",
+				"type": "bytes4"
+			}
+		],
+		"name": "_allowedOracle",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "_complete_oracles",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "_completed",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "sellerVenmo",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "priceInCent",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "transactionMessage",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "secret",
+				"type": "string"
+			}
+		],
+		"name": "computeHash",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "offerID",
+				"type": "bytes32"
+			}
+		],
+		"name": "ethOffered",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "offerID",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "lockForSeconds",
+				"type": "uint256"
+			}
+		],
+		"name": "offer",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "oracleHash",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address payable",
+				"name": "msgSender",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "offerID",
+				"type": "bytes32"
+			}
+		],
+		"name": "paypalPurchase",
+        "description": "Allows the caller to accept an offer they received, by generating an enclave proof that they made an appropriate Paypal payment",
         "oracleFolder": "paypal_oracle",
-        "description": "Allows the caller to accept an offer they received, by generating an enclave proof that they made an appropriate Paypal payment."
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "bytes32",
-            "name": "oracleHash",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "address payable",
-            "name": "msgSender",
-            "type": "address"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "venmoHash",
-            "type": "bytes32"
-          }
-        ],
-        "name": "paypalPurchase2",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function",
-        "description": "Allows the caller to accept an offer they received, by generating an enclave proof that they made an appropriate Paypal payment."
-      }
-    ]
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "offerID",
+				"type": "bytes32"
+			}
+		],
+		"name": "retract",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "offerID",
+				"type": "bytes32"
+			}
+		],
+		"name": "secondsLeft",
+		"outputs": [
+			{
+				"internalType": "int256",
+				"name": "",
+				"type": "int256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "oracleHash",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address payable",
+				"name": "msgSender",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "offerID",
+				"type": "bytes32"
+			}
+		],
+		"name": "venmoPurchase",
+        "oracleFolder": "venmo_oracle",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]
   }
 }

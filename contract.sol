@@ -3,20 +3,21 @@ pragma solidity ^0.8.0;
 import "https://github.com/open-contracts/protocol/blob/main/solidity_contracts/OpenContractRopsten.sol";
 
 contract FiatSwap is OpenContractAlpha {
-    
+
     mapping(bytes32 => address) seller;
     mapping(bytes32 => address) buyer;
     mapping(bytes32 => uint256) amount;
     mapping(bytes32 => uint256) lockedUntil;
+    mapping(bytes32 => uint8) serviceID;
 
 
-    function secondsLeft(bytes32 offerHash) public view returns(int256) {
-        return int256(lockedUntil[offerHash]) - int256(block.timestamp);
+    function secondsLeft(bytes32 offerID) public view returns(int256) {
+        return int256(lockedUntil[offerID]) - int256(block.timestamp);
     }
 
-    function ethOffered(bytes32 offerHash) public view returns(uint256) {
-        require(msg.sender == buyer[offerHash], "No ETH offered for you.");
-        return amount[offerHash];
+    function ethOffered(bytes32 offerID) public view returns(uint256) {
+        require(msg.sender == buyer[offerID], "No ETH offered for you.");
+        return amount[offerID];
     }
 
 
@@ -24,26 +25,37 @@ contract FiatSwap is OpenContractAlpha {
         return keccak256(abi.encodePacked(sellerVenmo, priceInCent, transactionMessage, secret));
     }
 
-    function venmoPurchase(bytes32 oracleHash, address payable msgSender, bytes32 offerHash) 
+    function venmoPurchase(bytes32 oracleHash, address payable msgSender, bytes32 offerID) 
     public _oracle(oracleHash, msgSender, this.venmoPurchase.selector) returns(bool) {
-        require(buyer[offerHash] == msgSender);
-        uint256 payment = amount[offerHash];
-        amount[offerHash] = 0;
+        require(buyer[offerID] == msgSender);
+        uint256 payment = amount[offerID];
+        serviceID[offerID] = 0;
+        amount[offerID] = 0;
         return msgSender.send(payment);
     }
 
-    function offer(address to, bytes32 offerHash, uint256 lockForSeconds) public payable {
-        amount[offerHash] = msg.value;
-        buyer[offerHash] = to;
-        lockedUntil[offerHash] = block.timestamp + lockForSeconds;
-        seller[offerHash] = msg.sender;
+    function paypalPurchase(bytes32 oracleHash, address payable msgSender, bytes32 offerID) 
+    public _oracle(oracleHash, msgSender, this.paypalPurchase.selector) returns(bool) {
+        require(buyer[offerID] == msgSender);
+        uint256 payment = amount[offerID];
+        serviceID[offerID] = 1;
+        amount[offerID] = 0;
+        return msgSender.send(payment);
     }
-    
-    function retract(bytes32 offerHash) public returns(bool) {
-        require(seller[offerHash] == msg.sender, 'only seller can retract offer');
-        require(lockedUntil[offerHash] <= block.timestamp, "can't retract offer during the locking period. check 'secondsLeft()'");
-        uint256 payment = amount[offerHash];
-        amount[offerHash] = 0;
+
+    function offer(address to, bytes32 offerID, uint256 lockForSeconds) public payable {
+        amount[offerID] = msg.value;
+        buyer[offerID] = to;
+        lockedUntil[offerID] = block.timestamp + lockForSeconds;
+        seller[offerID] = msg.sender;
+    }
+
+    function retract(bytes32 offerID) public returns(bool) {
+        require(seller[offerID] == msg.sender, 'only seller can retract offer');
+        require(lockedUntil[offerID] <= block.timestamp, "can't retract offer during the locking period. check 'secondsLeft()'");
+        uint256 payment = amount[offerID];
+        amount[offerID] = 0;
         return payable(msg.sender).send(payment);
     }
 }
+
