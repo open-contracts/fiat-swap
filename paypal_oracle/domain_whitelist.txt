@@ -1,3 +1,6 @@
+t.paypal.com
 www.paypal.com
 paypal.com
 www.paypalobjects.com
+www.recaptcha.net
+gstatic.com
