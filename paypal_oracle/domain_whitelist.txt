@@ -1,4 +1,7 @@
 t.paypal.com
+c.paypal.com
+c6.paypal.com
+pics.paypal.com
 www.paypal.com
 paypal.com
 www.paypalobjects.com
