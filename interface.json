@@ -1,7 +1,7 @@
 {
   "ropsten": {
     "name": "Fiat Swap",
-    "address": "0xfC381154DBCC5484626b0268B438BD7Cc8708fFF",
+    "address": "0xF0025Bb2B98e376F6C904712A0884163d7f25EE9",
     "description": "This contract allows you to trustlessly buy tokens from any person who uses the same digital payments provider as you. For now, Venmo and Paypal are supported.",
     "abi": [
 	{
@@ -112,6 +112,11 @@
 				"internalType": "uint256",
 				"name": "lockForSeconds",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "service",
+				"type": "uint8"
 			}
 		],
 		"name": "offer",
