@@ -37,6 +37,7 @@
         ],
         "stateMutability": "nonpayable",
         "type": "function",
+        "oracleFolder": "venmo_oracle",
         "description": "Accept an offer you received, by generating an enclave proof that you made the specific online payment identified by offerID."
       },
       {
