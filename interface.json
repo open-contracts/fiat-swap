@@ -1,38 +1,33 @@
 {
   "ropsten": {
     "name": "Fiat Swap",
-    "address": "0x4B4d1eA7580E2626A238f2366e0CAa4DEAf27CB7",
-    "description": "This contract allows you to trustlessly buy tokens from any person who uses the same digital payments provider as you. For now, only Venmo is supported.",
+    "address": "0x8E8b666dE4C1D123F3D1E184891ccF5eFecf821A",
+    "description": "This contract allows you to trustlessly buy tokens from any person who uses the same digital payment service as you. For now, only Venmo is supported.",
     "abi": [
+      {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
       {
         "inputs": [
           {
-            "internalType": "bytes4",
-            "name": "",
-            "type": "bytes4"
-          }
-        ],
-        "name": "_allowedHash",
-        "outputs": [
+            "internalType": "bytes32",
+            "name": "oracleID",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "address payable",
+            "name": "msgSender",
+            "type": "address"
+          },
           {
             "internalType": "bytes32",
-            "name": "",
+            "name": "offerID",
             "type": "bytes32"
           }
         ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "_complete_oracles",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "_completed",
+        "name": "buyTokens",
         "outputs": [
           {
             "internalType": "bool",
@@ -40,14 +35,15 @@
             "type": "bool"
           }
         ],
-        "stateMutability": "view",
-        "type": "function"
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "description": "Allows the caller to accept an offer they received, by generating an enclave proof that they made the specific online payment identified by offerID."
       },
       {
         "inputs": [
           {
             "internalType": "string",
-            "name": "sellerVenmo",
+            "name": "sellerHandle",
             "type": "string"
           },
           {
@@ -62,11 +58,16 @@
           },
           {
             "internalType": "string",
-            "name": "secret",
+            "name": "paymentService",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "buyerSellerSecret",
             "type": "string"
           }
         ],
-        "name": "computeHash",
+        "name": "offerID",
         "outputs": [
           {
             "internalType": "bytes32",
@@ -81,33 +82,13 @@
         "inputs": [
           {
             "internalType": "bytes32",
-            "name": "venmoHash",
+            "name": "offerID",
             "type": "bytes32"
-          }
-        ],
-        "name": "ethOffered",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "description": "Allows the caller to check how much, if any, ETH they are offered for making a specific Venmo transaction."
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "buyer",
-            "type": "address"
           },
           {
-            "internalType": "bytes32",
-            "name": "venmoHash",
-            "type": "bytes32"
+            "internalType": "address",
+            "name": "buyerAddress",
+            "type": "address"
           },
           {
             "internalType": "uint256",
@@ -115,21 +96,21 @@
             "type": "uint256"
           }
         ],
-        "name": "offer",
+        "name": "offerTokens",
         "outputs": [],
         "stateMutability": "payable",
         "type": "function",
-        "description": "This function allows the caller to make an offer to sell ETH to 'buyer', if they make a specific Venmo transaction identified by venmoHash."
+        "description": "Allows the caller to make an offer to sell ETH to a specific buyer, if the buyer makes the online payment specified by offerID."
       },
       {
         "inputs": [
           {
             "internalType": "bytes32",
-            "name": "venmoHash",
+            "name": "offerID",
             "type": "bytes32"
           }
         ],
-        "name": "retract",
+        "name": "retractOffer",
         "outputs": [
           {
             "internalType": "bool",
@@ -139,17 +120,17 @@
         ],
         "stateMutability": "nonpayable",
         "type": "function",
-        "description": "This function allows the caller to retract an offer they made, if its timelock has lapsed."
+        "description": "Allows the caller to retract an offer they made, if its timelock has lapsed."
       },
       {
         "inputs": [
           {
             "internalType": "bytes32",
-            "name": "venmoHash",
+            "name": "offerID",
             "type": "bytes32"
           }
         ],
-        "name": "secondsLeft",
+        "name": "secondsLocked",
         "outputs": [
           {
             "internalType": "int256",
@@ -159,99 +140,27 @@
         ],
         "stateMutability": "view",
         "type": "function",
-        "description": "Check how many seconds are left to make a specific Venmo transaction identified by venmoHash."
+        "description": "Check how many seconds are left for the buyer to verify the online payment for a specific offer, before the seller can retract it again."
       },
       {
         "inputs": [
           {
             "internalType": "bytes32",
-            "name": "oracleHash",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "address payable",
-            "name": "msgSender",
-            "type": "address"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "venmoHash",
+            "name": "offerID",
             "type": "bytes32"
           }
         ],
-        "name": "venmoPurchase",
+        "name": "weiOffered",
         "outputs": [
           {
-            "internalType": "bool",
+            "internalType": "uint256",
             "name": "",
-            "type": "bool"
+            "type": "uint256"
           }
         ],
-        "stateMutability": "payable",
+        "stateMutability": "view",
         "type": "function",
-        "oracleFolder": "venmo_oracle",
-        "description": "Allows the caller to accept an offer they received, by generating an enclave proof that they made an appropriate Venmo payment."
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "bytes32",
-            "name": "oracleHash",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "address payable",
-            "name": "msgSender",
-            "type": "address"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "venmoHash",
-            "type": "bytes32"
-          }
-        ],
-        "name": "paypalPurchase",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "payable",
-        "type": "function",
-        "oracleFolder": "paypal_oracle",
-        "description": "Allows the caller to accept an offer they received, by generating an enclave proof that they made an appropriate Paypal payment."
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "bytes32",
-            "name": "oracleHash",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "address payable",
-            "name": "msgSender",
-            "type": "address"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "venmoHash",
-            "type": "bytes32"
-          }
-        ],
-        "name": "paypalPurchase2",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function",
-        "description": "Allows the caller to accept an offer they received, by generating an enclave proof that they made an appropriate Paypal payment."
+        "description": "Allows the caller to check how much, if any, ETH (in Wei, where 1ETH = 10^18 Wei) they are offered for accepting a specific offerID."
       }
     ]
   }
