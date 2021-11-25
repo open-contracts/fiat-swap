@@ -2,7 +2,7 @@
   "ropsten": {
     "name": "Fiat Swap",
     "address": "0x8E8b666dE4C1D123F3D1E184891ccF5eFecf821A",
-    "description": "This contract allows you to trustlessly buy tokens from any person who uses the same digital payment service as you. For now, only Venmo is supported.",
+    "description": "This contract allows you to trustlessly buy tokens from any person who uses the same digital payment service as you. For now, only Venmo is supported. Every transaction has a unique offerID which can be computed from the payment details via the offerID function. As long as no third party knows (or guesses) the buyerSellerSecret, the off-chain payment details stay private between buyer and seller.",
     "abi": [
       {
         "inputs": [],
@@ -37,7 +37,7 @@
         ],
         "stateMutability": "nonpayable",
         "type": "function",
-        "description": "Allows the caller to accept an offer they received, by generating an enclave proof that they made the specific online payment identified by offerID."
+        "description": "Accept an offer you received, by generating an enclave proof that you made the specific online payment identified by offerID."
       },
       {
         "inputs": [
@@ -76,7 +76,8 @@
           }
         ],
         "stateMutability": "pure",
-        "type": "function"
+        "type": "function",
+        "description": "Compute the offerID from the payment details: handle=username of the seller, the price in cents, the message you must use in the transaction, the payment service (Venmo, Paypal, etc), and a secret known to both parties."
       },
       {
         "inputs": [
@@ -100,7 +101,7 @@
         "outputs": [],
         "stateMutability": "payable",
         "type": "function",
-        "description": "Allows the caller to make an offer to sell ETH to a specific buyer, if the buyer makes the online payment specified by offerID."
+        "description": "Make an offer to sell ETH to a specific buyer, if the buyer makes the online payment specified by offerID."
       },
       {
         "inputs": [
@@ -120,7 +121,7 @@
         ],
         "stateMutability": "nonpayable",
         "type": "function",
-        "description": "Allows the caller to retract an offer they made, if its timelock has lapsed."
+        "description": "Retract an offer you made, if its timelock has lapsed."
       },
       {
         "inputs": [
