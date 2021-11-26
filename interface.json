@@ -162,7 +162,7 @@
         ],
         "stateMutability": "view",
         "type": "function",
-        "description": "Allows the caller to check how much, if any, ETH (in Wei, where 1ETH = 10^18 Wei) they are offered for accepting a specific offerID."
+        "description": "Check how much, if any, Wei (where 10^18 Wei=1 ETH) you would get for accepting a specific offerID."
       }
     ]
   }
