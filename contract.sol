@@ -12,7 +12,7 @@ contract FiatSwap is OpenContract {
         setOracle(this.buyTokens.selector, "any"); // developer mode, allows any oracleID for 'buyTokens'
     }
 
-    // every offer has a unique offerID which can be computed with this function.
+    // every offer has a unique offerID which can be computed from the off-chain transaction details.
     function offerID(string memory sellerHandle, uint256 priceInCent, string memory transactionMessage,
                      string memory paymentService, string memory buyerSellerSecret) public pure returns(bytes32) {
         return keccak256(abi.encodePacked(sellerHandle, priceInCent, transactionMessage, buyerSellerSecret));
