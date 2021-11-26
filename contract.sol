@@ -14,7 +14,7 @@ contract FiatSwap is OpenContract {
 
     // every offer has a unique offerID which can be computed with this function.
     function offerID(string memory sellerHandle, uint256 priceInCent, string memory transactionMessage,
-                     uint8 serviceID, string memory buyerSellerSecret) public pure returns(bytes32) {
+                     string memory paymentService, string memory buyerSellerSecret) public pure returns(bytes32) {
         return keccak256(abi.encodePacked(sellerHandle, priceInCent, transactionMessage, buyerSellerSecret));
     }
 
