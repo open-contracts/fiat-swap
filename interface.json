@@ -78,7 +78,7 @@
         ],
         "stateMutability": "pure",
         "type": "function",
-        "description": "Compute the offerID from the payment details: handle=username of the seller, the price in cents, the message you must use in the transaction, the payment service (Venmo, Paypal, etc), and a secret known to both parties."
+        "description": "Compute the offerID from the payment details:\n handle (username) of the seller, the price in cents, the message you must use in the transaction, the payment service (Venmo, Paypal, etc), and a secret known to both parties."
       },
       {
         "inputs": [
