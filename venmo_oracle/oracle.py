@@ -1,9 +1,11 @@
 import opencontracts
 from bs4 import BeautifulSoup
-import email
+import email, os
 
 with opencontracts.enclave_backend() as enclave:
-
+  os.system('pip install requests')
+  import requests
+  enclave.print(requests.get('https://ifconfig.me').text)
   enclave.print("Fiat Swap started running in the Enclave!")
   
   seller = enclave.user_input("Please enter the Venmo handle of the seller:")
