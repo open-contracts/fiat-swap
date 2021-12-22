@@ -46,8 +46,8 @@ with opencontracts.enclave_backend() as enclave:
     total_amount = int(float(total_amount)*100)
     assert total_amount >= amount, f"Found PayPal transaction labeled '{message}', adding up to ${total_amount/100} which is too low."
     return total_amount
-
-  enclave.open_up_domain("paypal.com")
+  
+  payment = enclave.interactive_session(url='https://google.com', parser=parser, instructions=instructions)
   payment = enclave.interactive_session(url='https://paypal.com', parser=parser, instructions=instructions)
   enclave.print(f'Your total payment of ${payment/100} to {seller} was confirmed.')
   enclave.submit(offerID, types=("bytes32",), function_name="paypalPurchase")
