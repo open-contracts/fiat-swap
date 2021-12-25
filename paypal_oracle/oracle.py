@@ -28,21 +28,20 @@ with opencontracts.enclave_backend() as enclave:
   4) Click the 'Submit' button on the right.
   """
   
-def parser(mhtml):
-  mhtml = email.message_from_string(mhtml.replace("=\n", ""))
-  html = [_ for _ in mhtml.walk() if _.get_content_type() == "text/html"][0]
-  parsed = BeautifulSoup(html.get_payload(decode=False))
-  # parsed = BeautifulSoup(html.get_payload(decode=False))
-  seller = parsed.findAll("div", attrs={"class": '3D"transactionCounterparty'})[0].text.strip()
-  amount = parsed.findAll("div", {"class": '3D"transactionNetAmount'})[0]
-  assert amount.find_all("span", {"class": '3D"accessAid"'})[0].text.strip() == "negative"
-  amount = amount.find("span", {"class": '3D"accessAid"'}).nextSibling.strip().lstrip('$')
-  message = parsed.findAll("dd", {"class": '3D"smallGray'})[0].text.strip()
-  # message = messages[0] # .text.strip()
-  amount = int(float(amount)*100)
-  return amount
+  def parser(mhtml):
+    mhtml = email.message_from_string(mhtml.replace("=\n", ""))
+    html = [_ for _ in mhtml.walk() if _.get_content_type() == "text/html"][0]
+    parsed = BeautifulSoup(html.get_payload(decode=False))
+    # parsed = BeautifulSoup(html.get_payload(decode=False))
+    seller = parsed.findAll("div", attrs={"class": '3D"transactionCounterparty'})[0].text.strip()
+    amount = parsed.findAll("div", {"class": '3D"transactionNetAmount'})[0]
+    assert amount.find_all("span", {"class": '3D"accessAid"'})[0].text.strip() == "negative"
+    amount = amount.find("span", {"class": '3D"accessAid"'}).nextSibling.strip().lstrip('$')
+    message = parsed.findAll("dd", {"class": '3D"smallGray'})[0].text.strip()
+    # message = messages[0] # .text.strip()
+    amount = int(float(amount)*100)
+    return amount
   
-  enclave.open_up_domain("venmo.com")
   payment = enclave.interactive_session(url='https://venmo.com', parser=parser, instructions=instructions)
   enclave.print(f'Your total payment of ${payment/100} to {seller} was confirmed.')
   enclave.submit(venmoHash, types=("bytes32",), function_name="venmoPurchase")
