@@ -1,6 +1,0 @@
-www.venmo.com
-account.venmo.com
-venmo.com
-api.venmo.com
-jssdks.mparticle.com
-api2.amplitude.com
