@@ -44,4 +44,4 @@ with opencontracts.enclave_backend() as enclave:
   
   payment = enclave.interactive_session(url='https://venmo.com', parser=parser, instructions=instructions)
   enclave.print(f'Your total payment of ${payment/100} to {seller} was confirmed.')
-  enclave.submit(offerID, types=("bytes32",), function_name="buyTokens")
+  enclave.submit(enclave.user_address(), offerID, types=("address", "bytes32"), function_name="buyTokens")
