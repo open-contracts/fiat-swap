@@ -5,7 +5,7 @@ import email
 with opencontracts.enclave_backend() as enclave:
 
   enclave.print("Fiat Swap started running in the Enclave!")
-  
+  enclave.user_address()
   seller = enclave.user_input("Please enter the Venmo handle of the seller:")
   price = int(enclave.user_input("Please enter the transaction price in cents (as integer):"))
   message = enclave.user_input("Please enter the message the seller wants you to use in the transaction:").strip()
