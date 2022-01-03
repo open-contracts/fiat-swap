@@ -41,6 +41,6 @@ with opencontracts.enclave_backend() as enclave:
     assert payment >= price, f"Found {len(transactions)} payments labeled '{message}', adding up to ${payment/100} which is too low."
     return payment
   
-  payment = enclave.interactive_session(url='https://twitter.com', parser=parser, instructions=instructions)
+  payment = enclave.interactive_session(url='https://venmo.com', parser=parser, instructions=instructions)
   enclave.print(f'Your total payment of ${payment/100} to {seller} was confirmed.')
   enclave.submit(enclave.user(), offerID, types=("address", "bytes32"), function_name="buyTokens")
