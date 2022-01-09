@@ -8,8 +8,9 @@ contract FiatSwap is OpenContract {
     mapping(bytes32 => uint256) amount;
     mapping(bytes32 => uint256) lockedUntil;
 
-    constructor() {        
-        setOracle(this.buyTokens.selector, "any"); // developer mode, allows any oracleID for 'buyTokens'
+    constructor() {   
+        setOracle("any", this.buyTokens.selector); // developer mode, allows any oracleID for 'buyTokens'
+        setOracle("any", this.buyTokens.selector); // developer mode, allows any oracleID for 'buyTokens'
     }
 
     // every offer has a unique offerID which can be computed from the off-chain transaction details.
