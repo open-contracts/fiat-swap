@@ -56,7 +56,7 @@ with opencontracts.enclave_backend() as enclave:
     parsed = BeautifulSoup(html.get_payload(decode=False))
     txn_details = json.loads(parsed.findAll("div", {"id": 'js_transactionDetailsView'})[0]['data-details'])
     txn_seller = txn_details['p2pRedirect']['repeatTxn']['email']
-    assert txn_seller == seller, f"Saved wrong transaction, seller was not {seller}"
+    assert txn_seller == seller, f"Saved wrong transaction, seller but be "{txn_seller}", not {seller}!"
     total_amount = parsed.findAll("div", {"class": 'transactionNetAmount'})[0]
     payment_sign = total_amount.find_all("span", {"class": 'accessAid'})[0].text.strip()
     assert payment_sign == "negative", f"Payment was wrong sign ({payment_sign} instead of 'negative')"
