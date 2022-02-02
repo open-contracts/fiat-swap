@@ -2,7 +2,7 @@
 
 ### TL;DR
 
-This contract allows token sellers to put their tokens into a contract, which only releases the tokens to someone who can prove that they appropriately paid the seller on some traditional digital payment service (such as Venmo, MPesa, Zelle, CashApp, PayPal...), which takes care of handling the fiat payments, as well as KYC and AML compliance. The current proof-of-concept only supports Venmo so far. The goal is to allow anyone to freely swap between local currency inside a verified fiat account, and tokens on the blockchain. 
+This contract allows token sellers to put their tokens into a contract, which only releases the tokens to someone who can prove that they appropriately paid the seller on some traditional digital payment service (such as Venmo, MPesa, Zelle, CashApp, PayPal...) that takes care of handling the fiat payments, as well as KYC and AML compliance. The current proof-of-concept only supports Venmo so far. The goal is to allow anyone to freely swap between local currency inside a verified fiat account, and tokens on the blockchain. 
 
 This is a key building block needed to provide financial products (such as insurance or loans) to anyone in the world via the blockchain: anyone who receives capital from a smart contract could use it to do things in the fiat-world, and anyone who wants to deposit capital into smart contracts could do so - as long they use the same payment service as some individual who's willing to swap between crypto and fiat, even if the two don't trust each other.
 
