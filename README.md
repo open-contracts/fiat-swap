@@ -1,6 +1,6 @@
 # Fiat Swap
 
-### TL;DR
+### Summary
 
 This contract allows token sellers to put their tokens into a contract, which only releases the tokens to someone who can prove that they appropriately paid the seller on some traditional digital payment service (such as Venmo, MPesa, Zelle, CashApp, PayPal...) that takes care of handling the fiat payments, as well as KYC and AML compliance. The goal is to allow anyone to freely swap between local currency inside a verified fiat account, and tokens on the blockchain. 
 
