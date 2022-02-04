@@ -1,6 +1,6 @@
 # Fiat Swap
 
-If you're on a desktop browser and have the [MetaMask](https://metamask.io/) plugin installed, you can [try out Fiat-Swap](https://dapp.opencontracts.io/#/open-contracts/fiat-swap) on the Ropsten Testnet!
+If you're on a desktop browser and have the [MetaMask](https://metamask.io/) plugin installed, you can [try out Fiat-Swap](https://dapp.opencontracts.io/#/open-contracts/fiat-swap) on the Ropsten Testnet with some free [testnet ETH](https://faucet.egorfine.com/)!
 
 ### Summary
 
