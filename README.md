@@ -6,11 +6,6 @@ This contract allows token sellers to put their tokens into a contract, which on
 
 This is a key building block needed to provide financial products (such as insurance, loans or savings accounts) to anyone in the world via the blockchain: anyone who receives capital from a smart contract could use it to do things in the fiat-world, and anyone who wants to deposit capital into smart contracts could do so - as long they use the same payment service as some individual who's willing to swap between crypto and fiat, even if the two don't trust each other.
 
-Here are some exciting ways anyone could improve the contract, and start a business around it: 
-- Add more fiat payment services
-- Design a market which efficiently matches buyers with sellers, maybe by finding a way to create the role of liquidity providers as in [Uniswap](https://uniswap.com/) for example.
-- Integrate with [OpenGSN](https://opengsn.org/) to allow the token-buyer to start without any ETH in their wallet, enabling a trustless fiat-crypto onramp (directly onto L2!). 
-
 ### The big picture
 There's a lot of spare capital parked on Ethereum. People decided to put it there because they have high hopes for the potential of the technology, and now they would love to put it to productive (and interest-earning) use. For now, there are only few "productive" use-cases for capital in the blockchain world: align the incentives of consensus participants via proof-of-stake, or provide liquidity that allows users to swap tokens, for example. But if we're honest, there's almost no way right now in which this capital could be put to productive use in the _real world_, i.e. to solve problems that have existed before blockchains came around. The consequence: people mostly use their capital to speculate on the prices of NTFs, ERC20s and other tokens. We think this falls fundamentally short of what blockchain capital - which is globally available and has perfect contractual security built-in - _could_ be used for: rent it out or provide insurance to individuals who are inadequately served by existing financial and legal institutions, such as small business owners in low income countries, for example.
 
@@ -27,3 +22,11 @@ Let's explain each of the fiat transaction details: `paymentService` specifies t
 The `hash` function always produces the same `offerID` from the same transaction details, but you cannot compute the details from a given `offerID` in any other way than randomly trying out all plausible inputs until you find the exact set of inputs that procudes a given `offerID`. This means that as long as `buyerSellerSecret` is a large, random number known only to the buyer and seller, even someone who correctly guesses the `sellerHandle`,`priceInCent`,`transactionMessage` and `paymentService` couldn't figure out that any public `offerID` was produced from those fiat transaction details, because they would have to try out every possible `buyerSellerSecret` as well.
 
 To make an offer to a buyer, the seller calls the `offerTokens` function to deposit their tokens into the contract, specifying their `offerID`, the Ethereum address of the buyer, and the number of seconds the buyer has to claim the offer without fearing that it could be retracted or fulfilled by someone else. Then, the seller shares the fiat transaction details with the buyer, who can compute the corresponding `offerID` and check (via the `weiOffered` function) that they would receive enough tokens for making this fiat transaction. If that is the case, they can make the specified payment, and then call the `buyTokens` function. This will start an oracle enclave, which first receives the transaction details from the buyer and computes the `offerID`. Next, it opens up the website of the payment service in an interactive session, where the user passes 2FA and captchas and shows the enclave that they made the right transaction. If everything checks out, the enclave signs the offerID along with the user's Ethereum address such that the user can submit them to the contract, which then releases the tokens to the user. If the user doesn't submit the proof of payment in time, the seller can call `retractOffer` to get their tokens back from the contract.
+
+### How to improve
+
+Here are some exciting ways you could improve the contract, and maybe start a business around it: 
+- Add more fiat payment services
+- Design a market which efficiently matches buyers with sellers, maybe by finding a way to create the role of liquidity providers as in [Uniswap](https://uniswap.com/) for example.
+- Integrate with [OpenGSN](https://opengsn.org/) to allow the token-buyer to start without any ETH in their wallet, enabling a trustless fiat-crypto onramp (directly onto L2!). 
+
