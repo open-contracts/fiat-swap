@@ -30,3 +30,4 @@ Here are some exciting ways you could improve the contract, and maybe start a bu
 - Design a market which efficiently matches buyers with sellers, maybe by finding a way to create the role of liquidity providers as in [Uniswap](https://uniswap.com/) for example.
 - Integrate with [OpenGSN](https://opengsn.org/) to allow the token-buyer to start without any ETH in their wallet, enabling a trustless fiat-crypto onramp (directly onto L2!). 
 
+
