@@ -54,7 +54,6 @@ contract FiatSwap is OpenContract {
     }
 
     // to accept a given offerID and buy tokens, buyers have to verify their payment 
-    // using the oracle whose oracleID was specified in the constructor at the top
     function buyTokens(address payable msgSender, bytes32 offerID) public requiresOracle returns(bool) {
         require(buyer[offerID] == msgSender);
         uint256 payment = amount[offerID];
