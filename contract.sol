@@ -1,6 +1,21 @@
 pragma solidity ^0.8.0;
-import "https://github.com/open-contracts/protocol/blob/main/solidity_contracts/OpenContractRopsten.sol";
 
+contract OpenContract {
+    OpenContractsHub private hub = OpenContractsHub(0x2d7FBE2EbCd2026b6a4fD21923F5221d104e194c);
+ 
+    function setOracle(bytes4 selector, bytes32 oracleID) internal {
+        hub.setOracle(selector, oracleID);
+    }
+ 
+    modifier requiresOracle {
+        require(msg.sender == address(hub), "Can only be called via Open Contracts Hub.");
+        _;
+    }
+}
+
+interface OpenContractsHub {
+    function setOracle(bytes4, bytes32) external;
+}
 
 contract FiatSwap is OpenContract {
     mapping(bytes32 => address) seller;
@@ -9,7 +24,7 @@ contract FiatSwap is OpenContract {
     mapping(bytes32 => uint256) lockedUntil;
 
     constructor() {   
-        setOracle("any", this.buyTokens.selector); // developer mode, allows any oracleID for 'buyTokens'
+        // setOracle(this.buyTokens.selector, 0x1234); // developer mode, allows any oracleID for 'buyTokens'
     }
 
     // every offer has a unique offerID which can be computed from the off-chain transaction details.
@@ -40,8 +55,7 @@ contract FiatSwap is OpenContract {
 
     // to accept a given offerID and buy tokens, buyers have to verify their payment 
     // using the oracle whose oracleID was specified in the constructor at the top
-    function buyTokens(bytes32 oracleID, address payable msgSender, bytes32 offerID) 
-    public checkOracle(oracleID, this.buyTokens.selector) returns(bool) {
+    function buyTokens(address payable msgSender, bytes32 offerID) public requiresOracle returns(bool) {
         require(buyer[offerID] == msgSender);
         uint256 payment = amount[offerID];
         amount[offerID] = 0;
