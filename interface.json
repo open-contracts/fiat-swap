@@ -1,8 +1,11 @@
 {
-  "ropsten": {
     "name": "Fiat Swap",
-    "address": "0xfeDf04347881D98d7d8E462887ad2Da045eCBcde",
-    "description": "This contract allows you to trustlessly buy tokens from any person who uses the same digital payment service as you. For now, only Venmo is supported. Every transaction has a unique offerID which can be computed from the off-chain payment details via the offerID function. As long as no third party knows (or guesses) the buyerSellerSecret, the offer ID does not reveral the off-chain payment details, so they stay private between buyer and seller.",
+    "address": {
+      "ropsten": "0xfeDf04347881D98d7d8E462887ad2Da045eCBcde"
+    },
+    "descriptions": {
+      "contract": "This contract allows you to trustlessly buy tokens from any person who uses the same digital payment service as you. For now, only Venmo is supported. Every transaction has a unique offerID which can be computed from the off-chain payment details via the offerID function. As long as no third party knows (or guesses) the buyerSellerSecret, the offer ID does not reveral the off-chain payment details, so they stay private between buyer and seller."
+    },
     "abi": [
       {
         "inputs": [],
@@ -160,5 +163,4 @@
         "description": "Check how much, if any, Wei (where 10^18 Wei=1 ETH) you would get for accepting a specific offerID."
       }
     ]
-  }
 }
