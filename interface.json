@@ -1,166 +1,164 @@
 {
-    "name": "Fiat Swap",
-    "address": {
-      "ropsten": "0xfeDf04347881D98d7d8E462887ad2Da045eCBcde"
+  "name": "Fiat Swap",
+  "address": {
+    "ropsten": "0x21752d62Fe864Dc1d7022A16bbd34566B2a48D57"
+  },
+  "descriptions": {
+    "contract": "This contract allows you to trustlessly buy tokens from any person who uses the same digital payment service as you. For now, only Venmo is supported. Every transaction has a unique offerID which can be computed from the off-chain payment details via the offerID function. As long as no third party knows (or guesses) the buyerSellerSecret, the offer ID does not reveral the off-chain payment details, so they stay private between buyer and seller.",
+    "buyTokens": "Accept an offer you received, by generating an enclave proof that you made the specific online payment identified by offerID.",
+    "offerID": "Compute the offerID from the payment details:\n handle (username) of the seller, the price in cents, the message you must use in the transaction, the payment service (Venmo, Paypal, etc), and a secret known to both parties.",
+    "retractOffer": "Retract an offer you made, if its timelock has lapsed.",
+    "secondsLocked": "Check how many seconds are left for the buyer to verify the online payment for a specific offer, before the seller can retract it again.",
+    "weiOffered": "Check how much, if any, Wei (where 10^18 Wei=1 ETH) you would get for accepting a specific offerID."
+  },
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
     },
-    "descriptions": {
-      "contract": "This contract allows you to trustlessly buy tokens from any person who uses the same digital payment service as you. For now, only Venmo is supported. Every transaction has a unique offerID which can be computed from the off-chain payment details via the offerID function. As long as no third party knows (or guesses) the buyerSellerSecret, the offer ID does not reveral the off-chain payment details, so they stay private between buyer and seller."
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "offerID",
+          "type": "bytes32"
+        }
+      ],
+      "name": "buyTokens",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
-    "abi": [
-      {
-        "inputs": [],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address payable",
-            "name": "msgSender",
-            "type": "address"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "offerID",
-            "type": "bytes32"
-          }
-        ],
-        "name": "buyTokens",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function",
-        "oracleFolder": "venmo_oracle",
-        "description": "Accept an offer you received, by generating an enclave proof that you made the specific online payment identified by offerID."
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "string",
-            "name": "sellerHandle",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "priceInCent",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "transactionMessage",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "paymentService",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "buyerSellerSecret",
-            "type": "string"
-          }
-        ],
-        "name": "offerID",
-        "outputs": [
-          {
-            "internalType": "bytes32",
-            "name": "",
-            "type": "bytes32"
-          }
-        ],
-        "stateMutability": "pure",
-        "type": "function",
-        "description": "Compute the offerID from the payment details:\n handle (username) of the seller, the price in cents, the message you must use in the transaction, the payment service (Venmo, Paypal, etc), and a secret known to both parties."
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "bytes32",
-            "name": "offerID",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "address",
-            "name": "buyerAddress",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "lockForSeconds",
-            "type": "uint256"
-          }
-        ],
-        "name": "offerTokens",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function",
-        "description": "Make an offer to sell ETH to a specific buyer, if the buyer makes the online payment specified by offerID."
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "bytes32",
-            "name": "offerID",
-            "type": "bytes32"
-          }
-        ],
-        "name": "retractOffer",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function",
-        "description": "Retract an offer you made, if its timelock has lapsed."
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "bytes32",
-            "name": "offerID",
-            "type": "bytes32"
-          }
-        ],
-        "name": "secondsLocked",
-        "outputs": [
-          {
-            "internalType": "int256",
-            "name": "",
-            "type": "int256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "description": "Check how many seconds are left for the buyer to verify the online payment for a specific offer, before the seller can retract it again."
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "bytes32",
-            "name": "offerID",
-            "type": "bytes32"
-          }
-        ],
-        "name": "weiOffered",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "description": "Check how much, if any, Wei (where 10^18 Wei=1 ETH) you would get for accepting a specific offerID."
-      }
-    ]
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "sellerHandle",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "priceInCent",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "transactionMessage",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "paymentService",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "buyerSellerSecret",
+          "type": "string"
+        }
+      ],
+      "name": "offerID",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "offerID",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "buyerAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "lockForSeconds",
+          "type": "uint256"
+        }
+      ],
+      "name": "offerTokens",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "offerID",
+          "type": "bytes32"
+        }
+      ],
+      "name": "retractOffer",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "offerID",
+          "type": "bytes32"
+        }
+      ],
+      "name": "secondsLocked",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "offerID",
+          "type": "bytes32"
+        }
+      ],
+      "name": "weiOffered",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
 }
