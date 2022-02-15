@@ -1,21 +1,5 @@
 pragma solidity ^0.8.0;
-
-contract OpenContract {
-    OpenContractsHub private hub = OpenContractsHub(0x2d7FBE2EbCd2026b6a4fD21923F5221d104e194c);
- 
-    function setOracle(bytes4 selector, bytes32 oracleID) internal {
-        hub.setOracle(selector, oracleID);
-    }
- 
-    modifier requiresOracle {
-        require(msg.sender == address(hub), "Can only be called via Open Contracts Hub.");
-        _;
-    }
-}
-
-interface OpenContractsHub {
-    function setOracle(bytes4, bytes32) external;
-}
+import "https://github.com/open-contracts/ethereum-protocol/blob/main/solidity_contracts/OpenContractRopsten.sol";
 
 contract FiatSwap is OpenContract {
     mapping(bytes32 => address) seller;
@@ -24,7 +8,7 @@ contract FiatSwap is OpenContract {
     mapping(bytes32 => uint256) lockedUntil;
 
     constructor() {   
-        // setOracle(this.buyTokens.selector, 0x1234); // developer mode, allows any oracleID for 'buyTokens'
+        setOracleHash(this.buyTokens.selector, 0x1b031522bb9787f5b1aec2276f526179bb5feb2c5d5f095ed4a4492e27972358);
     }
 
     // every offer has a unique offerID which can be computed from the off-chain transaction details.
@@ -54,11 +38,12 @@ contract FiatSwap is OpenContract {
     }
 
     // to accept a given offerID and buy tokens, buyers have to verify their payment 
-    function buyTokens(address payable msgSender, bytes32 offerID) public requiresOracle returns(bool) {
-        require(buyer[offerID] == msgSender);
+    // using the oracle whose oracleID was specified in the constructor at the top
+    function buyTokens(address payable user, bytes32 offerID) public requiresOracle returns(bool) {
+        require(buyer[offerID] == user, "The offer was made to a different buyer.");
         uint256 payment = amount[offerID];
         amount[offerID] = 0;
-        return msgSender.send(payment);
+        return user.send(payment);
     }
 
     // sellers can retract their offers once the time lock lapsed.
