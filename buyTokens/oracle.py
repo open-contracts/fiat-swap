@@ -1,6 +1,5 @@
 import opencontracts
 from bs4 import BeautifulSoup
-import email
 
 with opencontracts.enclave_backend() as enclave:
 
@@ -26,13 +25,10 @@ with opencontracts.enclave_backend() as enclave:
   4) Click the 'Submit' button on the right.
   """
   
-  def parser(mhtml):
-    mhtml = email.message_from_string(mhtml.replace("=\n", ""))
-    url = mhtml['Snapshot-Content-Location']
+  def parser(url, html):
     target_url = f'https://account.venmo.com/u/{seller}'
     assert url==target_url, f"You hit 'Submit' on '{url}', but should do so on '{target_url}'."
-    html = [_ for _ in mhtml.walk() if _.get_content_type() == "text/html"][0]
-    parsed = BeautifulSoup(html.get_payload(decode=False))
+    parsed = BeautifulSoup(html)
     transactions = parsed.find_all(**{'data-testid' :'3D"betweenYou-feed-container"'})[0]
     transactions = transactions.findAll('div', {'class': lambda c: c and c.startswith('3D"storyContent_')})
     transactions = map(lambda t: (t.text.strip(), t.findParent().findParent().findNextSibling().text.strip()), transactions)
