@@ -30,6 +30,7 @@ with opencontracts.enclave_backend() as enclave:
     assert url==target_url, f"You hit 'Submit' on '{url}', but should do so on '{target_url}'."
     parsed = BeautifulSoup(html)
     enclave.print(list(parsed.strings))
+    enclave.print(html)
     transactions = parsed.find_all(**{'data-testid' :'3D"betweenYou-feed-container"'})[0]
     transactions = transactions.findAll('div', {'class': lambda c: c and c.startswith('3D"storyContent_')})
     transactions = map(lambda t: (t.text.strip(), t.findParent().findParent().findNextSibling().text.strip()), transactions)
