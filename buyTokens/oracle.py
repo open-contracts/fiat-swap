@@ -29,10 +29,8 @@ with opencontracts.enclave_backend() as enclave:
     #target_url = f'https://account.venmo.com/u/{seller}'
     #assert url==target_url, f"You hit 'Submit' on '{url}', but should do so on '{target_url}'."
     parsed = BeautifulSoup(html)
-    enclave.print(list(parsed.strings))
-    enclave.print(html)
-    transactions = parsed.find_all(**{'data-testid' :'3D"betweenYou-feed-container"'})[0]
-    transactions = transactions.findAll('div', {'class': lambda c: c and c.startswith('3D"storyContent_')})
+    transactions = parsed.find(**{'data-testid' :'betweenYou-feed-container'})
+    transactions = transactions.findAll('div', {'class': lambda c: c and c.startswith('storyContent_')})
     transactions = map(lambda t: (t.text.strip(), t.findParent().findParent().findNextSibling().text.strip()), transactions)
     transactions = list(filter(lambda t: (t[0]==message) and t[1].startswith("- $"), transactions))
     payment = sum(map(lambda t: int(float(t[1][3:])*100), transactions))
