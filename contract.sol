@@ -8,7 +8,7 @@ contract FiatSwap is OpenContract {
     mapping(bytes32 => uint256) lockedUntil;
 
     constructor() {   
-        setOracleHash(this.buyTokens.selector, 0x1b031522bb9787f5b1aec2276f526179bb5feb2c5d5f095ed4a4492e27972358);
+        setOracleHash(this.buyTokens.selector, 0x1c111637c019751c671b1c16ac8e6544ce3c4883effe36043c9df15562be2084);
     }
 
     // every offer has a unique offerID which can be computed from the off-chain transaction details.
