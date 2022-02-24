@@ -26,8 +26,8 @@ with opencontracts.enclave_backend() as enclave:
   """
   
   def parser(url, html):
-    target_url = f'https://account.venmo.com/u/{seller}'
-    assert url==target_url, f"You hit 'Submit' on '{url}', but should do so on '{target_url}'."
+    #target_url = f'https://account.venmo.com/u/{seller}'
+    #assert url==target_url, f"You hit 'Submit' on '{url}', but should do so on '{target_url}'."
     parsed = BeautifulSoup(html)
     enclave.print(list(parsed.strings))
     enclave.print(html)
