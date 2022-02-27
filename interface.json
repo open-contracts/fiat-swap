@@ -154,8 +154,9 @@
       "outputs": [
         {
           "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
+          "name": "ETH",
+          "type": "uint256",
+          "decimals": 18
         }
       ],
       "stateMutability": "view",
