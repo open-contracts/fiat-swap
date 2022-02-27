@@ -8,7 +8,7 @@ contract FiatSwap is OpenContract {
     mapping(bytes32 => uint256) lockedUntil;
 
     constructor() {   
-        setOracleHash(this.buyTokens.selector, 0xdc5f32e8d41de8698045283edd9b661316ad1ae4501cd808a7b41a97fd7efb53);
+        setOracleHash(this.buyTokens.selector, 0x7e534f3bbcec658ca6b9aed8ce0bf39f9e1b4f0aa4cd33e2e8b31280817f6358);
     }
 
     // every offer has a unique offerID which can be computed from the off-chain transaction details.
@@ -23,7 +23,7 @@ contract FiatSwap is OpenContract {
     }
 
     // every offer has a unique offerID which can be computed with this function.
-    function weiOffered(bytes32 offerID) public view returns(uint256) {
+    function amountOffered(bytes32 offerID) public view returns(uint256) {
         require(msg.sender == buyer[offerID], "No ether offered for you at this offerID.");
         require(secondsLocked(offerID) > 1200, "Offer isn't locked for at least 20min. Ask the seller for more time.");
         return amount[offerID];
