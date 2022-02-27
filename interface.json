@@ -1,7 +1,7 @@
 {
   "name": "Fiat Swap",
   "address": {
-    "ropsten": "0x569d22142A6522aC9A5880A5fC9E727217E4f22C"
+    "ropsten": "0x2Da511b62af738cC20DFfbcd4fC9af41f842a1e3"
   },
   "descriptions": {
     "contract": "This contract allows you to trustlessly buy tokens from any person who uses the same digital payment service as you. For now, only Venmo is supported. Every transaction has a unique offerID which can be computed from the off-chain payment details via the offerID function. As long as no third party knows (or guesses) the buyerSellerSecret, the offer ID does not reveral the off-chain payment details, so they stay private between buyer and seller.",
@@ -9,7 +9,7 @@
     "offerID": "Compute the offerID from the payment details:\n handle (username) of the seller, the price in cents, the message you must use in the transaction, the payment service (must be 'Venmo' for now), and a secret known to both parties.",
     "retractOffer": "Retract an offer you made, if its timelock has lapsed.",
     "secondsLocked": "Check how many seconds are left for the buyer to verify the online payment for a specific offer, before the seller can retract it again.",
-    "weiOffered": "Check how much, if any, Wei (where 10^18 Wei=1 ETH) you would get for accepting a specific offerID.",
+    "amountOffered": "Check how much, if any, ETH you would get for accepting a specific offerID.",
     "offerTokens": "Make an offer to a specific buyer, by locking ETH for some period of time in which only the buyer can withdraw it via an enclave proof that they performed the fiat transaction identified by offerID."
   },
   "abi": [
@@ -150,7 +150,7 @@
           "type": "bytes32"
         }
       ],
-      "name": "weiOffered",
+      "name": "amountOffered",
       "outputs": [
         {
           "internalType": "uint256",
