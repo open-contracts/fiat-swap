@@ -1,6 +1,6 @@
 # Fiat Swap
 
-If you're on a desktop browser and have the [MetaMask Wallet](https://metamask.io/) plugin installed, you can [try out Fiat-Swap](https://dapp.opencontracts.io/#/open-contracts/fiat-swap) on Ethereum's Ropsten Testnet! Just make sure your wallet is loaded with some free [testnet ETH](https://faucet.egorfine.com/).
+If you have the [MetaMask Wallet](https://metamask.io/) as browser plugin or mobile app, you can [try out Fiat-Swap](https://dapp.opencontracts.io/#/open-contracts/fiat-swap) on Ethereum's Ropsten Testnet! Just make sure your wallet is loaded with some free [testnet ETH](https://faucet.egorfine.com/). It's also live on [Optimism](https://optimism.io) mainnet, which you can add to your metamask [here](https://chainlist.org/).
 
 ### Summary
 
