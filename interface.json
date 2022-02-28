@@ -4,7 +4,7 @@
     "ropsten": "0x0b0D87A4846C190b20983c452D1289897d60eB08"
   },
   "descriptions": {
-    "contract": "This contract allows you to trustlessly buy tokens from any person who uses the same digital payment service as you. For now, only Venmo is supported. Every transaction has a unique offerID which can be computed from the off-chain payment details via the offerID function. As long as no third party knows (or guesses) the buyerSellerSecret, the offer ID does not reveral the off-chain payment details, so they stay private between buyer and seller.",
+    "contract": "This contract allows you to buy tokens from any person who uses the same digital payment service as you, even if you don't know or trust them. For now, only Venmo is supported. Every transaction has a unique offerID which can be computed from the off-chain payment details via the offerID function. As long as no third party knows (or guesses) the buyerSellerSecret, the offer ID does not reveral the off-chain payment details, so they stay private between buyer and seller.",
     "buyTokens": "Accept an offer you received, by generating an enclave proof that you made the specific online payment identified by offerID.",
     "offerID": "Compute the offerID from the payment details:\n handle (username) of the seller, the price in cents, the message you must use in the transaction, the payment service (must be 'Venmo' for now), and a secret known to both parties.",
     "retractOffer": "Retract an offer you made, if its timelock has lapsed.",
