@@ -31,6 +31,7 @@ contract FiatSwap is OpenContract {
 
     // to make an offer, the seller specifies the offerID, the buyer, and the time they give the buyer
     function offerTokens(bytes32 offerID, address buyerAddress, uint256 lockForSeconds) public payable {
+        require(secondsLocked(offerID) <= 0, "Can't override offer during the locking period.");
         amount[offerID] = msg.value;
         buyer[offerID] = buyerAddress;
         lockedUntil[offerID] = block.timestamp + lockForSeconds;
