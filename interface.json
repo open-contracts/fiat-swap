@@ -1,7 +1,8 @@
 {
   "name": "Fiat Swap",
   "address": {
-    "ropsten": "0x0b0D87A4846C190b20983c452D1289897d60eB08"
+    "ropsten": "0xa3C22BB574cA17Ea4b5d454fd1FcA5a6eF100fEa",
+    "optimism": "0xd8Ac1cb045Fad0a59A4b92315C78f6fd7457704F"
   },
   "descriptions": {
     "contract": "This contract allows you to buy tokens from any person who uses the same digital payment service as you, even if you don't know or trust them. For now, only Venmo is supported. Every transaction has a unique offerID which can be computed from the off-chain payment details via the offerID function. As long as no third party knows (or guesses) the buyerSellerSecret, the offer ID does not reveral the off-chain payment details, so they stay private between buyer and seller.",
